@@ -6,33 +6,33 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class MessagesConfig {
+public class Config {
 
     private File file;
     private FileConfiguration cfg;
 
-    public String prefix, channelIsMuted;
+    public boolean channelForwarding, allowCustomName;
 
-    public MessagesConfig() {
-        file = new File("plugins/" + ChatDistance.getPlugin(ChatDistance.class).getName() + "/Messages.yml");
+    public Config() {
+        file = new File("plugins/" + ChatDistance.getPlugin(ChatDistance.class).getName() + "/Config.yml");
         cfg = YamlConfiguration.loadConfiguration(file);
         load();
     }
 
     private void load() {
         if(!getFile().exists()) {
-            getCfg().set("Prefix", "&aChatDistance &f>> ");
+            getCfg().set("ChannelForwarding", true);
+            getCfg().set("AllowCustomName", true);
         }
-        prefix = getCfg().getString("Prefix").replaceAll("&", "§");
-        channelIsMuted = prefix + getCfg().getString("ChannelIsMuted").replaceAll("&", "§");
-    }
-
-
-    public FileConfiguration getCfg() {
-        return cfg;
+        channelForwarding = getCfg().getBoolean("ChannelForwarding");
+        allowCustomName = getCfg().getBoolean("AllowCustomName");
     }
 
     public File getFile() {
         return file;
+    }
+
+    public FileConfiguration getCfg() {
+        return cfg;
     }
 }
