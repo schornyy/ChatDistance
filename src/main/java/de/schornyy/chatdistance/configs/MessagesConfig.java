@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MessagesConfig {
 
@@ -22,6 +23,11 @@ public class MessagesConfig {
     private void load() {
         if(!getFile().exists()) {
             getCfg().set("Prefix", "&aChatDistance &f>> ");
+            getCfg().set("ChannelIsMuted", "&cDer Channel ist gemuted!");
+
+            try {
+                getCfg().save(getFile());
+            }catch (IOException e){}
         }
         prefix = getCfg().getString("Prefix").replaceAll("&", "§");
         channelIsMuted = prefix + getCfg().getString("ChannelIsMuted").replaceAll("&", "§");

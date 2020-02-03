@@ -13,6 +13,7 @@ public class Channel {
 
     private String channelName, permissions, messageDesign;
     private boolean muted, global;
+    private int distanze;
 
     private File file;
     private FileConfiguration cfg;
@@ -26,6 +27,7 @@ public class Channel {
     }
 
     public void create() {
+        setDistanze(10);
         setMuted(false);
         setGlobal(false);
         setPermissions("ChatDistance." + getChannelName());
@@ -34,6 +36,7 @@ public class Channel {
     }
 
     public void save() {
+        getCfg().set("Distance", isMuted());
         getCfg().set("Muted", isMuted());
         getCfg().set("Global", isGlobal());
         getCfg().set("Permissions", getPermissions());
@@ -45,6 +48,7 @@ public class Channel {
     }
 
     public void load() {
+        setDistanze(getCfg().getInt("Distance"));
         setMuted(getCfg().getBoolean("Muted"));
         setGlobal(getCfg().getBoolean("Global"));
         setPermissions(getCfg().getString("Permissions"));
@@ -128,5 +132,13 @@ public class Channel {
 
     public FileConfiguration getCfg() {
         return cfg;
+    }
+
+    public int getDistanze() {
+        return distanze;
+    }
+
+    public void setDistanze(int distanze) {
+        this.distanze = distanze;
     }
 }
