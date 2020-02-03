@@ -35,12 +35,15 @@ public class Channel {
         storedChannel.add(this);
     }
 
+    public void delete() {
+        getFile().delete();
+        getStoredChannel().remove(this);
+    }
+
     public void save() {
         getCfg().set("Distance", getDistanze());
         getCfg().set("Muted", isMuted());
         getCfg().set("Global", isGlobal());
-        getCfg().set("Permissions", getPermissions());
-        getCfg().set("MessageDesign", getMessageDesign().replaceAll("§", "&"));
 
         try {
             getCfg().save(getFile());
@@ -54,7 +57,6 @@ public class Channel {
         setPermissions(getCfg().getString("Permissions"));
         setMessageDesign(getCfg().getString("MessageDesign").replaceAll("&", "§"));
         storedChannel.add(this);
-        Bukkit.getConsoleSender().sendMessage("§aLoaded Channel§f: §b" + getChannelName());
     }
 
     public static void loadAllChannel() {
@@ -72,7 +74,6 @@ public class Channel {
     public static void saveAllChannel() {
         for(Channel channel : storedChannel) {
             if(channel == null) return;
-            Bukkit.getConsoleSender().sendMessage("§aSafed Channel§f: §c" + channel.getChannelName());
             channel.save();
         }
     }

@@ -35,33 +35,42 @@ public class PlayerChatListener implements Listener {
         final String finalMessage = msg;
         p.sendMessage(finalMessage);
 
-        if(channelPlayer.getChannel().isGlobal() == true) {
+        if(!channelPlayer.getChannel().isGlobal()) {
             if(ChatDistance.getPlugin(ChatDistance.class).getChatDistanceConfig().channelForwarding) {
+                int distance = channelPlayer.getChannel().getDistanze();
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    all.sendMessage(finalMessage);
+                    if (p.getLocation().distance(all.getLocation()) <= distance) {
+                        if(all != p) {
+                            all.sendMessage(finalMessage);
+                        }
+                    }
                 }
                 return;
             }
             for (Player all : Bukkit.getOnlinePlayers()) {
-                ChannelPlayer targetChannelPlayer = ChannelPlayer.getChannelPlayerByPlayer(all);
-                if (targetChannelPlayer.getChannel().getChannelName().equalsIgnoreCase(channelPlayer.getChannel().getChannelName())) {
-                    all.sendMessage(finalMessage);
+                if (p.getLocation().distance(all.getLocation()) <= channelPlayer.getChannel().getDistanze()) {
+                    ChannelPlayer targetChannelPlayer = ChannelPlayer.getChannelPlayerByPlayer(all);
+                    if (targetChannelPlayer.getChannel().getChannelName().equalsIgnoreCase(channelPlayer.getChannel().getChannelName())) {
+                        if(all != p) {
+                            all.sendMessage(finalMessage);
+                        }
+                    }
                 }
             }
             return;
-        } else {
+        } else if (channelPlayer.getChannel().isGlobal()){
             if(ChatDistance.getPlugin(ChatDistance.class).getChatDistanceConfig().channelForwarding) {
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (p.getLocation().distanceSquared(all.getLocation()) >= channelPlayer.getChannel().getDistanze()) {
+                    if(all != p) {
                         all.sendMessage(finalMessage);
                     }
                 }
                 return;
             }
             for (Player all : Bukkit.getOnlinePlayers()) {
-                if (p.getLocation().distanceSquared(all.getLocation()) >= channelPlayer.getChannel().getDistanze()) {
-                    ChannelPlayer targetChannelPlayer = ChannelPlayer.getChannelPlayerByPlayer(all);
-                    if (targetChannelPlayer.getChannel().getChannelName().equalsIgnoreCase(channelPlayer.getChannel().getChannelName())) {
+                ChannelPlayer targetChannelPlayer = ChannelPlayer.getChannelPlayerByPlayer(all);
+                if (targetChannelPlayer.getChannel().getChannelName().equalsIgnoreCase(channelPlayer.getChannel().getChannelName())) {
+                    if(all != p) {
                         all.sendMessage(finalMessage);
                     }
                 }
