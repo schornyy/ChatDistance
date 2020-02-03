@@ -3,3 +3,6 @@ version: ${project.version}
 main: de.schornyy.chatdistance.ChatDistance
 api-version: 1.13
 authors: [Schornyy]
+
+commands:
+  channel:

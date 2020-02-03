@@ -1,6 +1,7 @@
 package de.schornyy.chatdistance;
 
 import de.schornyy.chatdistance.channel.Channel;
+import de.schornyy.chatdistance.commands.ChannelCommand;
 import de.schornyy.chatdistance.configs.Config;
 import de.schornyy.chatdistance.configs.MessagesConfig;
 import de.schornyy.chatdistance.listener.PlayerChatListener;
@@ -43,7 +44,7 @@ public class ChatDistance extends JavaPlugin {
     }
 
     private void loadCommands() {
-
+        getCommand("channel").setExecutor(new ChannelCommand());
     }
 
     private void loadListener() {

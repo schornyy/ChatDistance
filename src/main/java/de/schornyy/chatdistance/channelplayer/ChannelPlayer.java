@@ -38,7 +38,7 @@ public class ChannelPlayer {
             }catch (IOException e){}
             setLatestChannel(getCfg().getString("LatestChannel"));
         }
-        setChannel(Channel.getChannelByName(getLatestChannel()));
+        setChannel(Channel.getChannelByName(getCfg().getString("LatestChannel")));
         storedChannelPlayer.put(player, this);
     }
 

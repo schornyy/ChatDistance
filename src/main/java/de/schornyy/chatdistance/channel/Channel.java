@@ -36,7 +36,7 @@ public class Channel {
     }
 
     public void save() {
-        getCfg().set("Distance", isMuted());
+        getCfg().set("Distance", getDistanze());
         getCfg().set("Muted", isMuted());
         getCfg().set("Global", isGlobal());
         getCfg().set("Permissions", getPermissions());
@@ -84,6 +84,10 @@ public class Channel {
             }
         }
         return null;
+    }
+
+    public static ArrayList<Channel> getStoredChannel() {
+        return storedChannel;
     }
 
     public String getPermissions() {
