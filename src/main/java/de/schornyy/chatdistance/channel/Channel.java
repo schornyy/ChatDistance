@@ -33,6 +33,10 @@ public class Channel {
         setPermissions("ChatDistance." + getChannelName());
         setMessageDesign("%player% §8: §f%message%");
         storedChannel.add(this);
+
+        getCfg().set("MessageDesign", getMessageDesign());
+        getCfg().set("Permissions", getPermissions());
+        save();
     }
 
     public void delete() {

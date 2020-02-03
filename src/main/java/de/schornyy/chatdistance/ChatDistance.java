@@ -45,6 +45,8 @@ public class ChatDistance extends JavaPlugin {
 
     private void loadCommands() {
         getCommand("channel").setExecutor(new ChannelCommand());
+
+        getCommand("channel").setTabCompleter(new ChannelCommand());
     }
 
     private void loadListener() {
